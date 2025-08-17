@@ -58,3 +58,24 @@ class BasePage:
 
     def expect_url_contains(self, path: str) -> None:
         expect(self.page).to_have_url(re.compile(f".*{re.escape(path)}"))
+
+# w klasie BasePage
+    def get_product_price_by_name(self, product_name: str, timeout: int = 5000) -> float:
+        """
+        Znajdź produkt po nazwie (test-id 'inventory-item-name') i zwróć jego cenę jako float.
+        """
+        product_item = self.page.get_by_test_id("inventory-item").filter(
+            has=self.page.get_by_test_id("inventory-item-name").filter(has_text=product_name)
+        )
+        price_locator = product_item.get_by_test_id("inventory-item-price")
+        price_locator.wait_for(state="visible", timeout=timeout)
+
+        raw = price_locator.text_content()
+        if not raw:
+            raise RuntimeError("Product price text is missing")
+
+        try:
+            return float(raw.replace("$", "").strip())
+        except ValueError as e:
+            raise ValueError(f"Could not parse price from '{raw}'") from e
+

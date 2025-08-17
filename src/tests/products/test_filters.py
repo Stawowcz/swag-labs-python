@@ -4,14 +4,12 @@ import pytest
 from playwright.sync_api import expect
 from typing import TYPE_CHECKING
 from src.types.common import CommonText
-
+from src.types.common import CommonValues
 from src.pages.products_page import ProductsPage
 
-# typy tylko dla podpowiedzi (nie ładowane w runtime)
 if TYPE_CHECKING:
     from src.tests.conftest import LoginAs, UserCredentials
 
-TIME_LIMIT_MS = 1500
 
 
 class TestFiltersStandardUser:
@@ -29,7 +27,7 @@ class TestFiltersStandardUser:
         names = [
             n.strip() for n in self.products_page.all_product_titles.all_text_contents()
         ]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert names == sorted(names)
 
     def test_sort_za(self) -> None:
@@ -38,7 +36,7 @@ class TestFiltersStandardUser:
         names = [
             n.strip() for n in self.products_page.all_product_titles.all_text_contents()
         ]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert names == sorted(names, reverse=True)
 
     def test_price_low_high(self) -> None:
@@ -46,7 +44,7 @@ class TestFiltersStandardUser:
         self.products_page.sort_dropdown.select_option("lohi")
         raw = self.products_page.all_product_prices.all_text_contents()
         prices = [float(x.replace("$", "").strip()) for x in raw]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert prices == sorted(prices)
 
     def test_price_high_low(self) -> None:
@@ -54,7 +52,7 @@ class TestFiltersStandardUser:
         self.products_page.sort_dropdown.select_option("hilo")
         raw = self.products_page.all_product_prices.all_text_contents()
         prices = [float(x.replace("$", "").strip()) for x in raw]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert prices == sorted(prices, reverse=True)
 
 
@@ -73,7 +71,7 @@ class TestFiltersProblemUser:
         names = [
             n.strip() for n in self.products_page.all_product_titles.all_text_contents()
         ]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert names == sorted(names)
 
     def test_sort_za(self) -> None:
@@ -82,7 +80,7 @@ class TestFiltersProblemUser:
         names = [
             n.strip() for n in self.products_page.all_product_titles.all_text_contents()
         ]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert names == sorted(names, reverse=True)
 
     def test_price_low_high(self) -> None:
@@ -90,7 +88,7 @@ class TestFiltersProblemUser:
         self.products_page.sort_dropdown.select_option("lohi")
         raw = self.products_page.all_product_prices.all_text_contents()
         prices = [float(x.replace("$", "").strip()) for x in raw]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert prices == sorted(prices)
 
     def test_price_high_low(self) -> None:
@@ -98,7 +96,7 @@ class TestFiltersProblemUser:
         self.products_page.sort_dropdown.select_option("hilo")
         raw = self.products_page.all_product_prices.all_text_contents()
         prices = [float(x.replace("$", "").strip()) for x in raw]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert prices == sorted(prices, reverse=True)
 
 
@@ -117,7 +115,7 @@ class TestFiltersErrorUser:
         names = [
             n.strip() for n in self.products_page.all_product_titles.all_text_contents()
         ]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert names == sorted(names)
 
     def test_sort_za(self) -> None:
@@ -126,7 +124,7 @@ class TestFiltersErrorUser:
         names = [
             n.strip() for n in self.products_page.all_product_titles.all_text_contents()
         ]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert names == sorted(names, reverse=True)
 
     def test_price_low_high(self) -> None:
@@ -134,7 +132,7 @@ class TestFiltersErrorUser:
         self.products_page.sort_dropdown.select_option("lohi")
         raw = self.products_page.all_product_prices.all_text_contents()
         prices = [float(x.replace("$", "").strip()) for x in raw]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert prices == sorted(prices)
 
     def test_price_high_low(self) -> None:
@@ -142,7 +140,7 @@ class TestFiltersErrorUser:
         self.products_page.sort_dropdown.select_option("hilo")
         raw = self.products_page.all_product_prices.all_text_contents()
         prices = [float(x.replace("$", "").strip()) for x in raw]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert prices == sorted(prices, reverse=True)
 
 
@@ -161,7 +159,7 @@ class TestFiltersVisualUser:
         names = [
             n.strip() for n in self.products_page.all_product_titles.all_text_contents()
         ]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert names == sorted(names)
 
     def test_sort_za(self) -> None:
@@ -170,7 +168,7 @@ class TestFiltersVisualUser:
         names = [
             n.strip() for n in self.products_page.all_product_titles.all_text_contents()
         ]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert names == sorted(names, reverse=True)
 
     def test_price_low_high(self) -> None:
@@ -178,7 +176,7 @@ class TestFiltersVisualUser:
         self.products_page.sort_dropdown.select_option("lohi")
         raw = self.products_page.all_product_prices.all_text_contents()
         prices = [float(x.replace("$", "").strip()) for x in raw]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert prices == sorted(prices)
 
     def test_price_high_low(self) -> None:
@@ -186,7 +184,7 @@ class TestFiltersVisualUser:
         self.products_page.sort_dropdown.select_option("hilo")
         raw = self.products_page.all_product_prices.all_text_contents()
         prices = [float(x.replace("$", "").strip()) for x in raw]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert prices == sorted(prices, reverse=True)
 
 
@@ -205,7 +203,7 @@ class TestFiltersPerfGlitchUser:
         names = [
             n.strip() for n in self.products_page.all_product_titles.all_text_contents()
         ]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert names == sorted(names)
 
     def test_sort_za(self) -> None:
@@ -214,7 +212,7 @@ class TestFiltersPerfGlitchUser:
         names = [
             n.strip() for n in self.products_page.all_product_titles.all_text_contents()
         ]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert names == sorted(names, reverse=True)
 
     def test_price_low_high(self) -> None:
@@ -222,7 +220,7 @@ class TestFiltersPerfGlitchUser:
         self.products_page.sort_dropdown.select_option("lohi")
         raw = self.products_page.all_product_prices.all_text_contents()
         prices = [float(x.replace("$", "").strip()) for x in raw]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert prices == sorted(prices)
 
     def test_price_high_low(self) -> None:
@@ -230,5 +228,5 @@ class TestFiltersPerfGlitchUser:
         self.products_page.sort_dropdown.select_option("hilo")
         raw = self.products_page.all_product_prices.all_text_contents()
         prices = [float(x.replace("$", "").strip()) for x in raw]
-        assert (perf_counter() - start) * 1000 <= TIME_LIMIT_MS
+        assert (perf_counter() - start) * 1000 <= CommonValues.TIME_LIMIT_MS
         assert prices == sorted(prices, reverse=True)
