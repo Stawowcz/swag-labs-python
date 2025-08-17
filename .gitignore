@@ -10,3 +10,11 @@ __pycache__/
 venv/
 .env
 pytestdebug.log
+
+.pytest_cache/
+.ruff_cache/
+test-results/
+playwright-report/
+playwright-traces/
+videos/
+screenshots/
