@@ -1,6 +1,5 @@
 # src/pages/products_page.py
 import re
-from typing import Optional
 from playwright.sync_api import Page, Locator
 from .base_page import BasePage
 
@@ -12,13 +11,19 @@ class ProductsPage(BasePage):
         # top / header
         self.primary_header: Locator = self.page.get_by_test_id("primary-header")
         self.hamburger_menu: Locator = self.page.get_by_test_id("open-menu")
-        self.hamburger_menu_button: Locator = self.page.locator("#react-burger-menu-btn")
+        self.hamburger_menu_button: Locator = self.page.locator(
+            "#react-burger-menu-btn"
+        )
 
         # cart / shop controls
-        self.shopping_cart_link: Locator = self.page.get_by_test_id("shopping-cart-link")
+        self.shopping_cart_link: Locator = self.page.get_by_test_id(
+            "shopping-cart-link"
+        )
         self.add_to_cart_button: Locator = self.page.get_by_test_id("add-to-cart")
         self.remove_from_cart_button: Locator = self.page.get_by_test_id("remove")
-        self.shopping_cart_container: Locator = self.page.locator("#shopping_cart_container")
+        self.shopping_cart_container: Locator = self.page.locator(
+            "#shopping_cart_container"
+        )
 
         # side menu / actions
         self.reset_app_button: Locator = self.page.get_by_test_id("reset-sidebar-link")
@@ -28,12 +33,20 @@ class ProductsPage(BasePage):
         # misc UI
         self.cart_badge: Locator = self.page.get_by_test_id("shopping-cart-badge")
         self.sort_dropdown: Locator = self.page.get_by_test_id("product-sort-container")
-        self.back_to_products_button: Locator = self.page.get_by_test_id("back-to-products")
+        self.back_to_products_button: Locator = self.page.get_by_test_id(
+            "back-to-products"
+        )
 
         # lists
-        self.all_product_descriptions: Locator = self.page.get_by_test_id("inventory-item-desc")
-        self.all_product_titles: Locator = self.page.get_by_test_id("inventory-item-name")
-        self.all_product_prices: Locator = self.page.get_by_test_id("inventory-item-price")
+        self.all_product_descriptions: Locator = self.page.get_by_test_id(
+            "inventory-item-desc"
+        )
+        self.all_product_titles: Locator = self.page.get_by_test_id(
+            "inventory-item-name"
+        )
+        self.all_product_prices: Locator = self.page.get_by_test_id(
+            "inventory-item-price"
+        )
 
         # generic "Add to cart" by role (regex)
         self.add_to_cart_button_by_role: Locator = self.page.get_by_role(
@@ -41,7 +54,9 @@ class ProductsPage(BasePage):
         )
 
         # burger menu overlay
-        self.burger_menu_close_button: Locator = self.page.locator("#react-burger-cross-btn")
+        self.burger_menu_close_button: Locator = self.page.locator(
+            "#react-burger-cross-btn"
+        )
         self.burger_menu: Locator = self.page.locator(".bm-menu-wrap")
 
     # ----- helpers / getters -----

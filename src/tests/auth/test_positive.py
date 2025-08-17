@@ -7,6 +7,7 @@ from src.types.common import CommonText
 from src.types.auth import LoginPageErrorMessages
 
 from typing import TYPE_CHECKING
+
 if TYPE_CHECKING:
     from src.pages.login_page import LoginPage
     from src.pages.products_page import ProductsPage
