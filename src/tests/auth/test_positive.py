@@ -8,21 +8,15 @@ from src.types.auth import LoginPageErrorMessages
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from playwright.sync_api import Page
     from src.pages.login_page import LoginPage
     from src.pages.products_page import ProductsPage
 
 
 def test_should_log_in_standard_user(
-    page: "Page",
     login_page: "LoginPage",
     products_page: "ProductsPage",
 ) -> None:
-    login_page.goto(env.SAUCE_DEMO_BASEURL)
-    login_page.fill_user_name_field(env.SAUCE_DEMO_STANDARD_USER)
-    login_page.fill_password_field(env.SAUCE_DEMO_PASSWORD)
-    login_page.click_on_login_button()
-
+    login_page.login(env.SAUCE_DEMO_STANDARD_USER, env.SAUCE_DEMO_PASSWORD)
     products_page.expect_url_contains("inventory")
     expect(products_page.primary_header).to_contain_text(CommonText.PRIMARY_HEADER_TEXT)
     expect(products_page.hamburger_menu).to_be_visible()
@@ -30,19 +24,13 @@ def test_should_log_in_standard_user(
 
 
 def test_should_log_in_locked_out_user_bug(
-    page: "Page",
     login_page: "LoginPage",
-    products_page: "ProductsPage",
 ) -> None:
-    login_page.goto(env.SAUCE_DEMO_BASEURL)
-    login_page.fill_user_name_field(env.SAUCE_DEMO_LOCKED_OUT_USER)
-    login_page.fill_password_field(env.SAUCE_DEMO_PASSWORD)
-    login_page.click_on_login_button()
+    login_page.login(env.SAUCE_DEMO_LOCKED_OUT_USER, env.SAUCE_DEMO_PASSWORD)
     expect(login_page.error_message).to_contain_text(LoginPageErrorMessages.LOCKED_OUT)
 
 
 def test_should_log_in_glitch_user_bug_slow(
-    page: "Page",
     login_page: "LoginPage",
     products_page: "ProductsPage",
 ) -> None:
